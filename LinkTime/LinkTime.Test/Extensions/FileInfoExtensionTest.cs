@@ -49,11 +49,19 @@ namespace LinkTime.Test.Extensions
         [Test]
         public void GetLinkTimeTest()
         {
-            FileInfo file = new FileInfo(Assembly.GetExecutingAssembly().Location);
-            TimeSpan diff = DateTime.UtcNow - file.GetLinkTime();
+            string directoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
+            string testFileName = Path.Combine(directoryName, "Pass.test");
 
+            DateTime expected = new DateTime(2017, 06, 05, 20, 07, 55);
+            DateTime.SpecifyKind(expected, DateTimeKind.Utc);
+
+            FileInfo file = new FileInfo(testFileName);
+            TimeSpan diff = file.GetLinkTime() - expected;
+
+            Console.WriteLine("Test file: {0}", testFileName);
             Console.WriteLine("Difference in seconds: {0}", diff.TotalSeconds);
-            Assert.That(diff.TotalSeconds < 60);
+
+            Assert.That(diff.TotalSeconds < 1);
         }
 
         #endregion

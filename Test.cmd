@@ -14,7 +14,7 @@ if errorlevel 1 goto error
 echo Building solution (debug)
 msbuild.exe /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo ^
   /property:Configuration=Debug /property:Platform="Any CPU" ^
-  /verbosity:quiet /t:clean,build^
+  /verbosity:quiet ^
   LinkTime.sln
 if errorlevel 1 goto error
 
