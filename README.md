@@ -4,7 +4,7 @@
 LinkTime is a small .NET based console application reading the [linker](https://en.wikipedia.org/wiki/Linker_(computing)) timestamp of the [Microsoft Windows Portable Executable (PE) format](https://en.wikipedia.org/wiki/Portable_Executable).
 
 ## Installation
-After "installation" (i.e. xcopy deployment) there are no furthur steps necessary - but you might want to copy the executable or a link to the executable to your autostart folder.
+This application can be deployed using xcopy.
 
 ### Option 1: Binary
 Stable versions can be downloaded [here](https://gitlab.com/tobiaskoch/LinkTime/pipelines?scope=tags).
