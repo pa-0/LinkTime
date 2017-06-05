@@ -64,6 +64,20 @@ namespace LinkTime.Test.Extensions
             Assert.That(diff.TotalSeconds < 1);
         }
 
+        /// <summary>
+        /// Checks if the missing file is detected correctly.
+        /// </summary>
+        [Test]
+        public void GetLinkTimeFileNotFoundTest()
+        {
+            string directoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
+            string testFileName = Path.Combine(directoryName, "IDoNotExist.test");
+
+            FileInfo file = new FileInfo(testFileName);
+
+            Assert.Throws<FileNotFoundException>(() => file.GetLinkTime());
+        }
+
         #endregion
     }
 }
