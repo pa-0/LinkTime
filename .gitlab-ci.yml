@@ -1,0 +1,51 @@
+image: mono:4.6.0.245
+
+stages:
+    - build
+    - test
+
+before_script:     
+    - nuget restore -NonInteractive
+
+release:
+    stage: build
+    only:
+        - tags
+    artifacts:
+        paths:
+          - LinkTime.exe
+          - LICENSE.md
+          - CHANGELOG.md
+          - AUTHORS.txt
+    script:
+        - xbuild "LinkTime.sln" /p:Configuration="Release" /p:Platform="Any CPU"
+        - cp Build/Release/LinkTime.exe LinkTime.exe
+
+ci-release:
+    stage: build
+    only:
+        - master
+    except:
+        - tags
+    artifacts:
+        expire_in: 4 weeks
+        paths:
+          - LinkTime.exe
+          - LICENSE.md
+          - CHANGELOG.md
+          - AUTHORS.txt
+    script:
+        - xbuild "LinkTime.sln" /p:Configuration="Release" /p:Platform="Any CPU"
+        - cp Build/Release/LinkTime.exe LinkTime.exe
+    
+ci-debug:
+    stage: test
+    artifacts:
+        expire_in: 1 week
+        paths:
+          - Build/Debug/LinkTime.Test.dll
+          - Build/Debug/LinkTime.exe
+          - Build/Debug/LinkTime.TestReport.xml
+    script:
+        - xbuild "LinkTime.sln" /p:Configuration="Debug" /p:Platform="Any CPU"
+        - mono packages/NUnit.ConsoleRunner.3.6.0/tools/nunit3-console.exe Build/Debug/LinkTime.Test.dll --work=Build/Debug/ --result=LinkTime.TestReport.xml
