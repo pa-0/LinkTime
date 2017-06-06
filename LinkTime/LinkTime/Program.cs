@@ -95,8 +95,6 @@ namespace LinkTime
             {
                 Console.WriteLine("No command line arguments - use LinkTime /? for help");
             }
-
-            Console.ReadKey();
         }
 
         #endregion
