@@ -1,6 +1,9 @@
 ![LINKTIME](https://gitlab.com/tobiaskoch/LinkTime/raw/master/Media/LinkTime-256.png)
 
 # LINKTIME
+
+[![pipeline status](https://gitlab.com/tobiaskoch/LinkTime/badges/master/pipeline.svg)](https://gitlab.com/tobiaskoch/LinkTime/commits/master)
+
 LinkTime is a small .NET based console application reading the [linker](https://en.wikipedia.org/wiki/Linker_(computing)) timestamp of the [Microsoft Windows Portable Executable (PE) format](https://en.wikipedia.org/wiki/Portable_Executable).
 
 ## Installation
