@@ -39,4 +39,4 @@ see [CONTRIBUTING.md](https://gitlab.com/tobiaskoch/LinkTime/blob/master/CONTRIB
 see [AUTHORS.txt](https://gitlab.com/tobiaskoch/LinkTime/blob/master/AUTHORS.txt)
 
 ## License
-**LinkTime** © 2017  Tobias Koch. Released under the [MIT License](https://gitlab.com/tobiaskoch/LinkTime/blob/master/LICENSE.md).
+**LinkTime** © 2017-2018  Tobias Koch. Released under the [MIT License](https://gitlab.com/tobiaskoch/LinkTime/blob/master/LICENSE.md).
