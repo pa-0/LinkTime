@@ -1,6 +1,9 @@
 ![LINKTIME](https://gitlab.com/tobiaskoch/LinkTime/raw/master/Media/LinkTime-256.png)
 
 # LINKTIME
+
+[![pipeline status](https://gitlab.com/tobiaskoch/LinkTime/badges/master/pipeline.svg)](https://gitlab.com/tobiaskoch/LinkTime/commits/master)
+
 LinkTime is a small .NET based console application reading the [linker](https://en.wikipedia.org/wiki/Linker_(computing)) timestamp of the [Microsoft Windows Portable Executable (PE) format](https://en.wikipedia.org/wiki/Portable_Executable).
 
 ## Installation
@@ -15,7 +18,7 @@ The following applications must be available and included in you *PATH* environm
 
 * [Git](https://git-scm.com/)
 * [Nuget.exe](https://www.nuget.org/)
-* MSBuild / XBuild ([Visual Studio](https://www.visualstudio.com) recommended for development)
+* MSBuild (.NET Framework / Mono; [Visual Studio](https://www.visualstudio.com) recommended for development)
 
 #### Source code
 Get the source code using the following command:

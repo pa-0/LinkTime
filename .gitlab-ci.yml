@@ -1,4 +1,4 @@
-image: mono:4.6.0.245
+image: mono:latest
 
 stages:
     - build
@@ -18,7 +18,7 @@ release:
           - CHANGELOG.md
           - AUTHORS.txt
     script:
-        - xbuild "LinkTime.sln" /p:Configuration="Release" /p:Platform="Any CPU"
+        - msbuild "LinkTime.sln" /p:Configuration="Release" /p:Platform="Any CPU"
         - cp Build/Release/LinkTime.exe LinkTime.exe
 
 ci-release:
@@ -35,7 +35,7 @@ ci-release:
           - CHANGELOG.md
           - AUTHORS.txt
     script:
-        - xbuild "LinkTime.sln" /p:Configuration="Release" /p:Platform="Any CPU"
+        - msbuild "LinkTime.sln" /p:Configuration="Release" /p:Platform="Any CPU"
         - cp Build/Release/LinkTime.exe LinkTime.exe
     
 ci-debug:
@@ -47,5 +47,5 @@ ci-debug:
           - Build/Debug/LinkTime.exe
           - Build/Debug/LinkTime.TestReport.xml
     script:
-        - xbuild "LinkTime.sln" /p:Configuration="Debug" /p:Platform="Any CPU"
+        - msbuild "LinkTime.sln" /p:Configuration="Debug" /p:Platform="Any CPU"
         - mono packages/NUnit.ConsoleRunner.3.6.0/tools/nunit3-console.exe Build/Debug/LinkTime.Test.dll --work=Build/Debug/ --result=LinkTime.TestReport.xml
