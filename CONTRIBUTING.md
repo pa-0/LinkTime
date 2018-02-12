@@ -33,7 +33,7 @@ Since you do not have write access to the repository a [project forking workflow
 - Obey software architecture and design 
 
 
-# Donate
+# Donations
 If you like the software consider a [donation][10].
 
 [1]: https://gitlab.com/tobiaskoch/LinkTime

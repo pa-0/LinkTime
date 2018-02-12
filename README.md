@@ -3,6 +3,8 @@
 # LINKTIME
 
 [![pipeline status](https://gitlab.com/tobiaskoch/LinkTime/badges/master/pipeline.svg)](https://gitlab.com/tobiaskoch/LinkTime/commits/master)
+[![maintained: yes](https://tobiaskoch.gitlab.io/badges/maintained-yes.svg)](https://gitlab.com/tobiaskoch/LinkTime/commits/master)
+[![donate: paypal](https://tobiaskoch.gitlab.io/badges/donate-paypal.svg)](https://www.tk-software.de/donate)
 
 LinkTime is a small .NET based console application reading the [linker](https://en.wikipedia.org/wiki/Linker_(computing)) timestamp of the [Microsoft Windows Portable Executable (PE) format](https://en.wikipedia.org/wiki/Portable_Executable).
 
@@ -40,6 +42,9 @@ see [CONTRIBUTING.md](https://gitlab.com/tobiaskoch/LinkTime/blob/master/CONTRIB
 
 ## Contributors
 see [AUTHORS.txt](https://gitlab.com/tobiaskoch/LinkTime/blob/master/AUTHORS.txt)
+
+## Donating
+Thanks for your interest in this project. You can show your appreciation and support further development by [donating](https://www.tk-software.de/donate).
 
 ## License
 **LinkTime** © 2017-2018  Tobias Koch. Released under the [MIT License](https://gitlab.com/tobiaskoch/LinkTime/blob/master/LICENSE.md).
