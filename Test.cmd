@@ -15,22 +15,22 @@ msbuild.exe /consoleloggerparameters:ErrorsOnly /maxcpucount /nologo ^
 if errorlevel 1 goto error
 
 echo Running unit tests
-.\packages\NUnit.ConsoleRunner.3.6.0\tools\nunit3-console.exe .\Build\Debug\LinkTime.Test.dll ^
+.\Build\Packages\NUnit.ConsoleRunner.3.6.0\tools\nunit3-console.exe .\Build\Debug\LinkTime.Test.dll ^
 --work=.\Build\Debug\ ^
 --result=LinkTime.TestReport.xml
 if errorlevel 1 goto error
 
 echo Running code coverage analysis
-.\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe ^
+.\Build\Packages\OpenCover.4.6.519\tools\OpenCover.Console.exe ^
   -register:user ^
   "-filter:+[*]* -[LinkTime.Test]*" ^
-  -target:".\packages\NUnit.ConsoleRunner.3.6.0\tools\nunit3-console.exe" ^
+  -target:".\Build\Packages\NUnit.ConsoleRunner.3.6.0\tools\nunit3-console.exe" ^
   -targetargs:".\Build\Debug\LinkTime.Test.dll --result=.\Build\Debug\LinkTime.TestReport.xml" ^
   -output:.\Build\Debug\LinkTime.Coverage.xml
 if errorlevel 1 goto error
 
 echo Generating coverage report
-packages\ReportGenerator.2.5.2\tools\ReportGenerator.exe ^
+.\Build\Packages\ReportGenerator.2.5.8\tools\ReportGenerator.exe ^
   -reports:".\Build\Debug\LinkTime.Coverage.xml" ^
   -targetdir:".\Build\Debug\Coverage"
 if errorlevel 1 goto error

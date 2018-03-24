@@ -48,4 +48,4 @@ ci-debug:
           - Build/Debug/LinkTime.TestReport.xml
     script:
         - msbuild "LinkTime.sln" /p:Configuration="Debug" /p:Platform="Any CPU"
-        - mono packages/NUnit.ConsoleRunner.3.6.0/tools/nunit3-console.exe Build/Debug/LinkTime.Test.dll --work=Build/Debug/ --result=LinkTime.TestReport.xml
+        - mono Build/Packages/NUnit.ConsoleRunner.3.6.0/tools/nunit3-console.exe Build/Debug/LinkTime.Test.dll --work=Build/Debug/ --result=LinkTime.TestReport.xml
