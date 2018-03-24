@@ -50,6 +50,9 @@
     <None Include="..\LinkTime.ruleset">
       <Link>LinkTime.ruleset</Link>
     </None>
+    <None Include="Fail.test">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
