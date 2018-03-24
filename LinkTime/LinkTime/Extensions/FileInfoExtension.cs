@@ -88,6 +88,10 @@ namespace LinkTime.Extensions
 
                 return linkerTimeUtc;
             }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
             catch (Exception ex)
             {
                 throw new ApplicationException("Error while analyzing the file", ex);
