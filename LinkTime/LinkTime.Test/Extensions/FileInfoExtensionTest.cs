@@ -78,6 +78,20 @@ namespace LinkTime.Test.Extensions
             Assert.Throws<FileNotFoundException>(() => file.GetLinkTime());
         }
 
+        /// <summary>
+        /// Checks if the wrong file is detected correctly.
+        /// </summary>
+        [Test]
+        public void GetLinkTimeNoExecutable()
+        {
+            string directoryName = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
+            string testFileName = Path.Combine(directoryName, "Fail.test");
+
+            FileInfo file = new FileInfo(testFileName);
+
+            Assert.Throws<InvalidOperationException>(() => file.GetLinkTime());
+        }
+
         #endregion
     }
 }
