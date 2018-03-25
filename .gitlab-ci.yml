@@ -4,8 +4,12 @@ stages:
     - build
     - test
 
-before_script:     
-    - nuget restore -NonInteractive
+before_script:
+    - apt-get -qq update
+    - apt-get -yqq install git
+    - apt-get -yqq install wget
+    - wget https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+    - mono nuget.exe restore -NonInteractive
 
 release:
     stage: build
