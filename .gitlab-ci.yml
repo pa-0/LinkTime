@@ -1,8 +1,8 @@
 image: mono:latest
 
 stages:
-    - build
     - test
+    - build
 
 before_script:
     - apt-get -qq update
