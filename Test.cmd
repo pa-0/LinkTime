@@ -16,6 +16,7 @@ if errorlevel 1 goto error
 
 echo Running unit tests
 .\Build\Packages\NUnit.ConsoleRunner.3.6.0\tools\nunit3-console.exe .\Build\Debug\LinkTime.Test.dll ^
+--inprocess ^
 --work=.\Build\Debug\ ^
 --result=LinkTime.TestReport.xml
 if errorlevel 1 goto error
@@ -25,7 +26,7 @@ echo Running code coverage analysis
   -register:user ^
   "-filter:+[*]* -[LinkTime.Test]*" ^
   -target:".\Build\Packages\NUnit.ConsoleRunner.3.6.0\tools\nunit3-console.exe" ^
-  -targetargs:".\Build\Debug\LinkTime.Test.dll --result=.\Build\Debug\LinkTime.TestReport.xml" ^
+  -targetargs:".\Build\Debug\LinkTime.Test.dll --inprocess --result=.\Build\Debug\LinkTime.TestReport.xml" ^
   -output:.\Build\Debug\LinkTime.Coverage.xml
 if errorlevel 1 goto error
 
