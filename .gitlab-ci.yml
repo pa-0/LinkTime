@@ -11,6 +11,10 @@ before_script:
     - wget https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
     - mono nuget.exe restore -NonInteractive
 
+cache:
+  paths:
+  - .veronique/
+
 release:
     stage: build
     only:
@@ -22,6 +26,7 @@ release:
           - CHANGELOG.md
           - AUTHORS.txt
     script:
+        - mono Build/Packages/Veronique.1.2.0/tools/Veronique.exe
         - msbuild "LinkTime.sln" /p:Configuration="Release" /p:Platform="Any CPU"
         - cp Build/Release/LinkTime.exe LinkTime.exe
 
