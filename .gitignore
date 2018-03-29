@@ -213,3 +213,6 @@ ModelManifest.xml
 
 # StyleCop
 StyleCop.Cache
+
+# Veronique
+.veronique/
