@@ -216,3 +216,7 @@ StyleCop.Cache
 
 # Veronique
 .veronique/
+
+# CAKE build
+Tools/**
+!Tools/Packages.config
