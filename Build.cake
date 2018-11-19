@@ -46,12 +46,26 @@ Task("Build")
     }
 });
 
+Task("Test")
+    .IsDependentOn("Build")
+    .Does(() =>
+{
+    if(IsRunningOnWindows())
+    {
+        NUnit3(GetFiles(MakeAbsolute(buildDirectory).FullPath + "/*.Test.dll"));
+    }
+    else
+    {
+        NUnit3(GetFiles(MakeAbsolute(buildDirectory).FullPath + "/*.Test.dll"));
+    }
+});
+
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("Build");
+    .IsDependentOn("Test");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
