@@ -44,6 +44,7 @@ ci-release:
 ci-debug:
     stage: test
     script:
-        - apt-get install tree 
+        - apt-get -qq update
+        - apt-get -yqq install tree
         - ./Build.sh
         - tree -a ./
