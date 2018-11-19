@@ -10,6 +10,7 @@ var configuration = Argument("configuration", "Debug");
 //////////////////////////////////////////////////////////////////////
 
 var buildDirectory = Directory("./Build") + Directory(configuration);
+var solutionFile = "LinkTime.sln";
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -25,7 +26,21 @@ Task("Restore-Packages")
     .IsDependentOn("Clean")
     .Does(() =>
 {
-    NuGetRestore("LinkTime.sln");
+    NuGetRestore(solutionFile);
+});
+
+Task("Build")
+    .IsDependentOn("Restore-Packages")
+    .Does(() =>
+{
+    if(IsRunningOnWindows())
+    {
+      MSBuild(solutionFile, settings => settings.SetConfiguration(configuration).WithProperty("OutDir", MakeAbsolute(buildDirectory).FullPath));
+    }
+    else
+    {
+      XBuild(solutionFile, settings => settings.SetConfiguration(configuration).WithProperty("OutDir", MakeAbsolute(buildDirectory).FullPath));
+    }
 });
 
 //////////////////////////////////////////////////////////////////////
@@ -33,7 +48,7 @@ Task("Restore-Packages")
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("Restore-Packages");
+    .IsDependentOn("Build");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
