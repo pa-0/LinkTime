@@ -27,8 +27,7 @@ release:
           - CHANGELOG.md
           - AUTHORS.txt
     script:
-        - mono Build/Packages/Veronique.1.2.0/tools/Veronique.exe
-        - msbuild "LinkTime.sln" /p:Configuration="Release" /p:Platform="Any CPU"
+        - ./Build.sh --configuration=Release
         - cp Build/Release/LinkTime.exe LinkTime.exe
 
 ci-release:
@@ -46,11 +45,10 @@ ci-release:
           - CHANGELOG.md
           - AUTHORS.txt
     script:
-        - msbuild "LinkTime.sln" /p:Configuration="Release" /p:Platform="Any CPU"
+        - ./Build.sh --configuration=Release
         - cp Build/Release/LinkTime.exe LinkTime.exe
     
 ci-debug:
     stage: test
     script:
-        - msbuild "LinkTime.sln" /p:Configuration="Debug" /p:Platform="Any CPU"
-        - mono Build/Packages/NUnit.ConsoleRunner.3.6.0/tools/nunit3-console.exe Build/Debug/LinkTime.Test.dll --inprocess --work=Build/Debug/ --result=LinkTime.TestReport.xml
+        - ./Build.sh
