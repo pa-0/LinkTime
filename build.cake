@@ -21,12 +21,19 @@ Task("Clean")
     CleanDirectory(MakeAbsolute(buildDirectory));
 });
 
+Task("Restore-Packages")
+    .IsDependentOn("Clean")
+    .Does(() =>
+{
+    NuGetRestore("LinkTime.sln");
+});
+
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
 
 Task("Default")
-    .IsDependentOn("Clean");
+    .IsDependentOn("Restore-Packages");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
