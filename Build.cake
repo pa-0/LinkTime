@@ -65,6 +65,8 @@ Task("Test")
             new OpenCoverSettings()
                 .WithFilter("+[*]*")
                 .WithFilter("-[LinkTime.Test]*"));
+
+        ReportGenerator(MakeAbsolute(buildDirectory).CombineWithFilePath(coverageReportFile), MakeAbsolute(buildDirectory).Combine("Coverage"));
     }
     else
     {
