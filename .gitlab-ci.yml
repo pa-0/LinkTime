@@ -46,5 +46,5 @@ ci-debug:
     script:
         - apt-get -qq update
         - apt-get -yqq install tree
-        - ./Build.sh
+        - ./Build.sh || true
         - tree -a ./
