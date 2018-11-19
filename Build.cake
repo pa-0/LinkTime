@@ -15,6 +15,7 @@ var configuration = Argument("configuration", "Debug");
 var buildDirectory = Directory("./Build") + Directory(configuration);
 var solutionFile = "LinkTime.sln";
 var testReportFile = "LinkTime.TestReport.xml";
+var coverageReportFile = "LinkTime.Coverage.xml";
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -53,11 +54,17 @@ Task("Test")
 {
     if(IsRunningOnWindows())
     {
-        NUnit3(GetFiles(MakeAbsolute(buildDirectory).FullPath + "/*.Test.dll"), new NUnit3Settings {
-            OutputFile = MakeAbsolute(buildDirectory).CombineWithFilePath(testReportFile),
-            Process = NUnit3ProcessOption.InProcess,
-            WorkingDirectory = MakeAbsolute(buildDirectory)
-        });
+        OpenCover(tool => {
+            tool.NUnit3(GetFiles(MakeAbsolute(buildDirectory).FullPath + "/*.Test.dll"), new NUnit3Settings {
+                OutputFile = MakeAbsolute(buildDirectory).CombineWithFilePath(testReportFile),
+                Process = NUnit3ProcessOption.InProcess,
+                WorkingDirectory = MakeAbsolute(buildDirectory)
+            });
+            },
+            MakeAbsolute(buildDirectory).CombineWithFilePath(coverageReportFile),
+            new OpenCoverSettings()
+                .WithFilter("+[*]*")
+                .WithFilter("-[LinkTime.Test]*"));
     }
     else
     {
