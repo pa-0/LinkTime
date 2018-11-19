@@ -85,7 +85,7 @@ popd >/dev/null
 if [ -f "$ADDINS_PACKAGES_CONFIG" ]; then
     pushd "$ADDINS_DIR" >/dev/null
 
-    mono "$NUGET_EXE" install -ExcludeVersion
+    mono "$NUGET_EXE" install -ExcludeVersion -OutputDirectory "$ADDINS_DIR"
     if [ $? -ne 0 ]; then
         echo "Could not restore NuGet addins."
         exit 1
@@ -98,7 +98,7 @@ fi
 if [ -f "$MODULES_PACKAGES_CONFIG" ]; then
     pushd "$MODULES_DIR" >/dev/null
 
-    mono "$NUGET_EXE" install -ExcludeVersion
+    mono "$NUGET_EXE" install -ExcludeVersion -OutputDirectory "$MODULES_DIR"
     if [ $? -ne 0 ]; then
         echo "Could not restore NuGet modules."
         exit 1
