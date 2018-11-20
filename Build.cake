@@ -2,6 +2,8 @@
 #tool "nuget:?package=OpenCover"
 #tool "nuget:?package=ReportGenerator"
 
+#addin "nuget:?package=Cake.Git"
+
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
@@ -52,7 +54,7 @@ Task("Test")
     .IsDependentOn("Build")
     .Does(() =>
 {
-    if(IsRunningOnWindows())
+    if(IsRunningOnWindows() && configuration == "Debug")
     {
         OpenCover(tool => {
             tool.NUnit3(GetFiles(MakeAbsolute(buildDirectory).FullPath + "/*.Test.dll"), new NUnit3Settings {
