@@ -36,8 +36,16 @@ Task("Restore-Packages")
     NuGetRestore(solutionFile);
 });
 
-Task("Build")
+Task("Set-Version")
     .IsDependentOn("Restore-Packages")
+    .WithCriteria(configuration == "Release")
+    .Does(() =>
+{
+    Information("Test");
+});
+
+Task("Build")
+    .IsDependentOn("Set-Version")
     .Does(() =>
 {
     if(IsRunningOnWindows())
