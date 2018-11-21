@@ -6,7 +6,7 @@ stages:
 
 cache:
   paths:
-  - .veronique/
+  - .cache/
 
 release:
     stage: build
