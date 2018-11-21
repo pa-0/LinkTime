@@ -4,11 +4,13 @@
 
 #addin "nuget:?package=Cake.Git"
 
+using System.IO;
 using System.Text.RegularExpressions;
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
+
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Debug");
 
@@ -61,7 +63,9 @@ Task("Set-Version")
         shasum = match.Groups["shasum"].Value;
     }
 
-    Information(major + "." + minor + ".0." + revision + "-" + shasum);
+    int buildNumber = GetPersistentBuildNumber(MakeAbsolute(new DirectoryPath("./")).FullPath);
+
+    Information(major + "." + minor + "." + buildNumber.ToString() + "." + revision + "-" + shasum);
 });
 
 Task("Build")
@@ -120,3 +124,33 @@ Task("Default")
 //////////////////////////////////////////////////////////////////////
 
 RunTarget(target);
+
+//////////////////////////////////////////////////////////////////////
+// FUNCTIONS
+//////////////////////////////////////////////////////////////////////
+
+public static int GetPersistentBuildNumber(string baseDirectory)
+{
+    int buildNumber;
+    string persistentPathName = System.IO.Path.Combine(baseDirectory, ".cache");
+    string persistentFileName = System.IO.Path.Combine(persistentPathName, "build-number");
+
+    try
+    {
+        if (!System.IO.Directory.Exists(persistentPathName))
+        {
+            System.IO.Directory.CreateDirectory(persistentPathName);
+        }
+
+        buildNumber = int.Parse(System.IO.File.ReadAllText(persistentFileName).Trim());
+        buildNumber++;
+    }
+    catch
+    {
+        buildNumber = 1;
+    }
+
+    System.IO.File.WriteAllText(persistentFileName, buildNumber.ToString());
+
+    return buildNumber;
+}
