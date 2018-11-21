@@ -4,6 +4,8 @@
 
 #addin "nuget:?package=Cake.Git"
 
+using System.Text.RegularExpressions;
+
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
@@ -41,7 +43,25 @@ Task("Set-Version")
     .WithCriteria(configuration == "Release")
     .Does(() =>
 {
-    Information("Test");
+    var gitDescription = GitDescribe("./", true, GitDescribeStrategy.Default);
+
+    Regex query = new Regex(@"v(?<major>\d+).(?<minor>\d+)-(?<revision>\d+)-(?<shasum>.*)");
+    MatchCollection matches = query.Matches(gitDescription);
+
+    string major = "0";
+    string minor = "0";
+    string revision = "0";
+    string shasum = "xxxxxx";
+
+    foreach (Match match in matches)
+    {
+        major = match.Groups["major"].Value;
+        minor = match.Groups["minor"].Value;
+        revision = match.Groups["revision"].Value;
+        shasum = match.Groups["shasum"].Value;
+    }
+
+    Information(major + "." + minor + ".0." + revision + "-" + shasum);
 });
 
 Task("Build")
