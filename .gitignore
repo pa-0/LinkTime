@@ -214,8 +214,8 @@ ModelManifest.xml
 # StyleCop
 StyleCop.Cache
 
-# Veronique
-.veronique/
+# Persistent cache (gitlab ci)
+.cache/
 
 # CAKE build
 Tools/**
