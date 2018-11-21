@@ -45,27 +45,37 @@ Task("Set-Version")
     .WithCriteria(configuration == "Release")
     .Does(() =>
 {
-    var gitDescription = GitDescribe("./", true, GitDescribeStrategy.Default);
-
-    Regex query = new Regex(@"v(?<major>\d+).(?<minor>\d+)-(?<revision>\d+)-(?<shasum>.*)");
-    MatchCollection matches = query.Matches(gitDescription);
-
-    string major = "0";
-    string minor = "0";
-    string revision = "0";
-    string shasum = "xxxxxx";
-
-    foreach (Match match in matches)
+    try
     {
-        major = match.Groups["major"].Value;
-        minor = match.Groups["minor"].Value;
-        revision = match.Groups["revision"].Value;
-        shasum = match.Groups["shasum"].Value;
+        var gitDescription = GitDescribe("./", true, GitDescribeStrategy.Default);
+
+        Regex query = new Regex(@"v(?<major>\d+).(?<minor>\d+)-(?<revision>\d+)-(?<shasum>.*)");
+        MatchCollection matches = query.Matches(gitDescription);
+
+        string major = "0";
+        string minor = "0";
+        string revision = "0";
+        string shasum = "xxxxxx";
+
+        foreach (Match match in matches)
+        {
+            major = match.Groups["major"].Value;
+            minor = match.Groups["minor"].Value;
+            revision = match.Groups["revision"].Value;
+            shasum = match.Groups["shasum"].Value;
+        }
+
+        int buildNumber = GetPersistentBuildNumber(MakeAbsolute(new DirectoryPath("./")).FullPath);
+
+        string versionString = string.Format("{0}.{1}.{2}.{3}", major, minor, buildNumber, revision);
+        string longVersionString = string.Format("{0}.{1}.{2}.{3}-{4}", major, minor, buildNumber, revision, shasum);
+
+        Information("Version: " + versionString);
+        Information("Version (long): " + longVersionString);
     }
-
-    int buildNumber = GetPersistentBuildNumber(MakeAbsolute(new DirectoryPath("./")).FullPath);
-
-    Information(major + "." + minor + "." + buildNumber.ToString() + "." + revision + "-" + shasum);
+    catch (Exception)
+    {
+    }
 });
 
 Task("Build")
