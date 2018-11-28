@@ -20,6 +20,7 @@ var configuration = Argument("configuration", "Debug");
 
 var buildDirectory = Directory("./Build") + Directory(configuration);
 var solutionFile = "LinkTime.sln";
+var solutionInfoFile = "./LinkTime/SolutionInfo.cs";
 var testReportFile = "LinkTime.TestReport.xml";
 var coverageReportFile = "LinkTime.Coverage.xml";
 
@@ -72,6 +73,12 @@ Task("Set-Version")
 
         Information("Version: " + versionString);
         Information("Version (long): " + longVersionString);
+
+        CreateAssemblyInfo(solutionInfoFile, new AssemblyInfoSettings {
+            Version = versionString,
+            FileVersion = versionString,
+            InformationalVersion = longVersionString,
+        });
     }
     catch (Exception)
     {
