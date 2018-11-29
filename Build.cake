@@ -113,7 +113,9 @@ Task("Test")
             });
             },
             MakeAbsolute(buildDirectory).CombineWithFilePath(coverageReportFile),
-            new OpenCoverSettings()
+            new OpenCoverSettings() {
+                WorkingDirectory = MakeAbsolute(buildDirectory)
+            }
                 .WithFilter("+[*]*")
                 .WithFilter("-[LinkTime.Test]*"));
 
