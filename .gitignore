@@ -220,6 +220,3 @@ StyleCop.Cache
 # CAKE build
 Tools/**
 !Tools/Packages.config
-
-# Solution info file updated by build script
-SolutionInfo.cs

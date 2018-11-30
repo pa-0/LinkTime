@@ -43,36 +43,38 @@ Task("Restore-Packages")
 
 Task("Set-Version")
     .IsDependentOn("Restore-Packages")
-    .WithCriteria(configuration == "Release")
     .Does(() =>
 {
     try
     {
-        var gitDescription = GitDescribe("./", true, GitDescribeStrategy.Default);
-
-        Regex query = new Regex(@"v(?<major>\d+).(?<minor>\d+)-(?<revision>\d+)-(?<shasum>.*)");
-        MatchCollection matches = query.Matches(gitDescription);
-
         string major = "0";
         string minor = "0";
+        string buildNumber = "0";
         string revision = "0";
-        string shasum = "xxxxxx";
+        string shasum = "X";
 
-        foreach (Match match in matches)
+        if (configuration == "Release")
         {
-            major = match.Groups["major"].Value;
-            minor = match.Groups["minor"].Value;
-            revision = match.Groups["revision"].Value;
-            shasum = match.Groups["shasum"].Value;
-        }
+            var gitDescription = GitDescribe("./", true, GitDescribeStrategy.Default);
 
-        int buildNumber = GetPersistentBuildNumber(MakeAbsolute(new DirectoryPath("./")).FullPath);
+            Regex query = new Regex(@"v(?<major>\d+).(?<minor>\d+)-(?<revision>\d+)-(?<shasum>.*)");
+            MatchCollection matches = query.Matches(gitDescription);
+
+            foreach (Match match in matches)
+            {
+                major = match.Groups["major"].Value;
+                minor = match.Groups["minor"].Value;
+                revision = match.Groups["revision"].Value;
+                shasum = match.Groups["shasum"].Value;
+            }
+
+            buildNumber = GetPersistentBuildNumber(MakeAbsolute(new DirectoryPath("./")).FullPath).ToString();
+        }
 
         string versionString = string.Format("{0}.{1}.{2}.{3}", major, minor, buildNumber, revision);
         string longVersionString = string.Format("{0}.{1}.{2}.{3}-{4}", major, minor, buildNumber, revision, shasum);
 
-        Information("Version: " + versionString);
-        Information("Version (long): " + longVersionString);
+        Information("Version: " + versionString + " (" + longVersionString + ")");
 
         CreateAssemblyInfo(solutionInfoFile, new AssemblyInfoSettings {
             Version = versionString,
