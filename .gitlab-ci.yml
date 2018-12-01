@@ -31,7 +31,7 @@ ci-release:
         paths:
           - ./*.zip
     script:
-        - ./Build.sh --configuration=Release --verbosity="diagnostic"
+        - ./Build.sh --configuration=Release
     
 ci-debug:
     stage: test
