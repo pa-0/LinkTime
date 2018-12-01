@@ -2,7 +2,8 @@
 #tool "nuget:?package=OpenCover"
 #tool "nuget:?package=ReportGenerator"
 
-#addin "nuget:?package=Cake.Git"
+// Remove version pinning when bug in Lib2GitSharp has been fixed: https://github.com/libgit2/libgit2sharp/issues/1637
+#addin "nuget:?package=Cake.Git&version=0.18.0"
 
 using System.IO;
 using System.Text.RegularExpressions;
