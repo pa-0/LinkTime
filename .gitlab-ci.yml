@@ -15,7 +15,7 @@ release:
     artifacts:
         name: "${CI_PROJECT_NAME}-${CI_COMMIT_TAG}"
         paths:
-          - *.zip
+          - ./*.zip
     script:
         - ./Build.sh --configuration=Release
 
@@ -29,7 +29,7 @@ ci-release:
         name: "${CI_PROJECT_NAME}-${CI_JOB_NAME}-${CI_COMMIT_SHA}"
         expire_in: 4 weeks
         paths:
-          - *.zip
+          - ./*.zip
     script:
         - ./Build.sh --configuration=Release
     
