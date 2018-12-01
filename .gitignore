@@ -21,6 +21,7 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+*.zip
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -214,5 +215,9 @@ ModelManifest.xml
 # StyleCop
 StyleCop.Cache
 
-# Veronique
-.veronique/
+# Persistent cache (gitlab ci)
+.cache/
+
+# CAKE build
+Tools/**
+!Tools/Packages.config

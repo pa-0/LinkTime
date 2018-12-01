@@ -4,16 +4,9 @@ stages:
     - test
     - build
 
-before_script:
-    - apt-get -qq update
-    - apt-get -yqq install git
-    - apt-get -yqq install wget
-    - wget https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
-    - mono nuget.exe restore -NonInteractive
-
 cache:
   paths:
-  - .veronique/
+  - .cache/
 
 release:
     stage: build
@@ -22,14 +15,9 @@ release:
     artifacts:
         name: "${CI_PROJECT_NAME}-${CI_COMMIT_TAG}"
         paths:
-          - LinkTime.exe
-          - LICENSE.md
-          - CHANGELOG.md
-          - AUTHORS.txt
+          - ./*.zip
     script:
-        - mono Build/Packages/Veronique.1.2.0/tools/Veronique.exe
-        - msbuild "LinkTime.sln" /p:Configuration="Release" /p:Platform="Any CPU"
-        - cp Build/Release/LinkTime.exe LinkTime.exe
+        - ./Build.sh --configuration=Release
 
 ci-release:
     stage: build
@@ -41,16 +29,11 @@ ci-release:
         name: "${CI_PROJECT_NAME}-${CI_JOB_NAME}-${CI_COMMIT_SHA}"
         expire_in: 4 weeks
         paths:
-          - LinkTime.exe
-          - LICENSE.md
-          - CHANGELOG.md
-          - AUTHORS.txt
+          - ./*.zip
     script:
-        - msbuild "LinkTime.sln" /p:Configuration="Release" /p:Platform="Any CPU"
-        - cp Build/Release/LinkTime.exe LinkTime.exe
+        - ./Build.sh --configuration=Release
     
 ci-debug:
     stage: test
     script:
-        - msbuild "LinkTime.sln" /p:Configuration="Debug" /p:Platform="Any CPU"
-        - mono Build/Packages/NUnit.ConsoleRunner.3.6.0/tools/nunit3-console.exe Build/Debug/LinkTime.Test.dll --inprocess --work=Build/Debug/ --result=LinkTime.TestReport.xml
+        - ./Build.sh
