@@ -19,10 +19,11 @@ var configuration = Argument("configuration", "Debug");
 //////////////////////////////////////////////////////////////////////
 
 var buildDirectory = Directory("./Build") + Directory(configuration);
-var solutionFile = "LinkTime.sln";
-var solutionInfoFile = "./LinkTime/SolutionInfo.cs";
-var testReportFile = "LinkTime.TestReport.xml";
-var coverageReportFile = "LinkTime.Coverage.xml";
+var projectName = "LinkTime";
+var solutionFile = projectName + ".sln";
+var solutionInfoFile = "./" + projectName + "/SolutionInfo.cs";
+var testReportFile = projectName + ".TestReport.xml";
+var coverageReportFile = projectName + ".Coverage.xml";
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -122,7 +123,7 @@ Task("Test")
                 WorkingDirectory = MakeAbsolute(buildDirectory)
             }
                 .WithFilter("+[*]*")
-                .WithFilter("-[LinkTime.Test]*"));
+                .WithFilter("-[" + projectName + ".Test]*"));
 
         ReportGenerator(MakeAbsolute(buildDirectory).CombineWithFilePath(coverageReportFile), MakeAbsolute(buildDirectory).Combine("Coverage"));
     }
@@ -141,7 +142,16 @@ Task("Create-Archive")
     .WithCriteria(configuration == "Release")
     .Does(() =>
 {
-    Zip(MakeAbsolute(buildDirectory), "./LinkTime-" + version + ".zip");
+    var files = new [] {
+        buildDirectory.ToString() + "/LinkTime.exe",
+        buildDirectory.ToString() + "/AUTHORS.txt",
+        buildDirectory.ToString() + "/CHANGELOG.md",
+        buildDirectory.ToString() + "/CONTRIBUTING.md",
+        buildDirectory.ToString() + "/LICENSE.md",
+        buildDirectory.ToString() + "/README.md"
+    };
+
+    Zip(MakeAbsolute(buildDirectory), "./" + projectName + "-" + version + ".zip", files);
 });
 
 //////////////////////////////////////////////////////////////////////
