@@ -48,48 +48,41 @@ Task("Set-Version")
     .IsDependentOn("Restore-Packages")
     .Does(() =>
 {
-    try
+    string major = "0";
+    string minor = "0";
+    string buildNumber = "0";
+    string revision = "0";
+    string shasum = "X";
+
+    if (configuration == "Release")
     {
-        string major = "0";
-        string minor = "0";
-        string buildNumber = "0";
-        string revision = "0";
-        string shasum = "X";
+        var gitDescription = GitDescribe("./", true, GitDescribeStrategy.Default);
 
-        if (configuration == "Release")
+        Regex query = new Regex(@"v(?<major>\d+).(?<minor>\d+)-(?<revision>\d+)-(?<shasum>.*)");
+        MatchCollection matches = query.Matches(gitDescription);
+
+        foreach (Match match in matches)
         {
-            var gitDescription = GitDescribe("./", true, GitDescribeStrategy.Default);
-
-            Regex query = new Regex(@"v(?<major>\d+).(?<minor>\d+)-(?<revision>\d+)-(?<shasum>.*)");
-            MatchCollection matches = query.Matches(gitDescription);
-
-            foreach (Match match in matches)
-            {
-                major = match.Groups["major"].Value;
-                minor = match.Groups["minor"].Value;
-                revision = match.Groups["revision"].Value;
-                shasum = match.Groups["shasum"].Value;
-            }
-
-            buildNumber = GetPersistentBuildNumber(MakeAbsolute(new DirectoryPath("./")).FullPath).ToString();
+            major = match.Groups["major"].Value;
+            minor = match.Groups["minor"].Value;
+            revision = match.Groups["revision"].Value;
+            shasum = match.Groups["shasum"].Value;
         }
 
-        version = string.Format("{0}.{1}.{2}", major, minor, revision);
-        string versionString = string.Format("{0}.{1}.{2}.{3}", major, minor, buildNumber, revision);
-        string longVersionString = string.Format("{0}.{1}.{2}.{3}-{4}", major, minor, buildNumber, revision, shasum);
-
-        Information("Version: " + versionString + " (" + longVersionString + ")");
-
-        CreateAssemblyInfo(solutionInfoFile, new AssemblyInfoSettings {
-            Version = versionString,
-            FileVersion = versionString,
-            InformationalVersion = longVersionString,
-        });
+        buildNumber = GetPersistentBuildNumber(MakeAbsolute(new DirectoryPath("./")).FullPath).ToString();
     }
-    catch (Exception ex)
-    {
-        Information("Error: " + ex.Message + Environment.NewLine + ex.StackTrace);
-    }
+
+    version = string.Format("{0}.{1}.{2}", major, minor, revision);
+    string versionString = string.Format("{0}.{1}.{2}.{3}", major, minor, buildNumber, revision);
+    string longVersionString = string.Format("{0}.{1}.{2}.{3}-{4}", major, minor, buildNumber, revision, shasum);
+
+    Information("Version: " + versionString + " (" + longVersionString + ")");
+
+    CreateAssemblyInfo(solutionInfoFile, new AssemblyInfoSettings {
+        Version = versionString,
+        FileVersion = versionString,
+        InformationalVersion = longVersionString,
+    });
 });
 
 Task("Build")
