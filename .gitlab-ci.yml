@@ -32,7 +32,6 @@ ci-release:
           - ./*.zip
     script:
         - ./Build.sh --configuration=Release
-        - ls ./.cache/
     
 ci-debug:
     stage: test
