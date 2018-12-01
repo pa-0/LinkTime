@@ -58,6 +58,7 @@ Task("Set-Version")
     if (configuration == "Release")
     {
         var gitDescription = GitDescribe("./", true, GitDescribeStrategy.Default);
+        Information("Git Describe: " + gitDescription);
 
         Regex query = new Regex(@"v(?<major>\d+).(?<minor>\d+)-(?<revision>\d+)-(?<shasum>.*)");
         MatchCollection matches = query.Matches(gitDescription);
