@@ -28,6 +28,8 @@ var coverageReportFile = "LinkTime.Coverage.xml";
 // TASKS
 //////////////////////////////////////////////////////////////////////
 
+var version = "0.0.0";
+
 Task("Clean")
     .Does(() =>
 {
@@ -71,6 +73,7 @@ Task("Set-Version")
             buildNumber = GetPersistentBuildNumber(MakeAbsolute(new DirectoryPath("./")).FullPath).ToString();
         }
 
+        version = string.Format("{0}.{1}.{2}", major, minor, revision);
         string versionString = string.Format("{0}.{1}.{2}.{3}", major, minor, buildNumber, revision);
         string longVersionString = string.Format("{0}.{1}.{2}.{3}-{4}", major, minor, buildNumber, revision, shasum);
 
@@ -135,9 +138,10 @@ Task("Test")
 
 Task("Create-Archive")
     .IsDependentOn("Test")
+    .WithCriteria(configuration == "Release")
     .Does(() =>
 {
-    Zip(MakeAbsolute(buildDirectory), "./Build/LinkTime.zip");
+    Zip(MakeAbsolute(buildDirectory), "./LinkTime-" + version + ".zip");
 });
 
 //////////////////////////////////////////////////////////////////////
