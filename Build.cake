@@ -86,8 +86,9 @@ Task("Set-Version")
             InformationalVersion = longVersionString,
         });
     }
-    catch (Exception)
+    catch (Exception ex)
     {
+        Information("Error: " + ex.Message + Environment.NewLine + ex.StackTrace);
     }
 });
 
