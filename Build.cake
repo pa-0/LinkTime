@@ -46,6 +46,7 @@ Task("Restore-Packages")
 
 Task("Set-Version")
     .IsDependentOn("Restore-Packages")
+    .WithCriteria(DirectoryExists(".git"))
     .Does(() =>
 {
     string major = "0";
