@@ -46,6 +46,7 @@ Task("Restore-Packages")
 
 Task("Set-Version")
     .IsDependentOn("Restore-Packages")
+    .WithCriteria(DirectoryExists(".git"))
     .Does(() =>
 {
     string major = "0";
@@ -90,14 +91,7 @@ Task("Build")
     .IsDependentOn("Set-Version")
     .Does(() =>
 {
-    if(IsRunningOnWindows())
-    {
-        MSBuild(solutionFile, settings => settings.SetConfiguration(configuration).WithProperty("OutDir", MakeAbsolute(buildDirectory).FullPath));
-    }
-    else
-    {
-        XBuild(solutionFile, settings => settings.SetConfiguration(configuration).WithProperty("OutDir", MakeAbsolute(buildDirectory).FullPath + "/"));
-    }
+    MSBuild(solutionFile, settings => settings.SetConfiguration(configuration).WithProperty("OutDir", MakeAbsolute(buildDirectory).FullPath));
 });
 
 Task("Test")
