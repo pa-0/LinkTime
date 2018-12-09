@@ -90,14 +90,7 @@ Task("Build")
     .IsDependentOn("Set-Version")
     .Does(() =>
 {
-    if(IsRunningOnWindows())
-    {
-        MSBuild(solutionFile, settings => settings.SetConfiguration(configuration).WithProperty("OutDir", MakeAbsolute(buildDirectory).FullPath));
-    }
-    else
-    {
-        XBuild(solutionFile, settings => settings.SetConfiguration(configuration).WithProperty("OutDir", MakeAbsolute(buildDirectory).FullPath + "/"));
-    }
+    MSBuild(solutionFile, settings => settings.SetConfiguration(configuration).WithProperty("OutDir", MakeAbsolute(buildDirectory).FullPath));
 });
 
 Task("Test")
