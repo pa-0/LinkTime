@@ -1,8 +1,7 @@
-#tool "nuget:?package=NUnit.ConsoleRunner"
-#tool "nuget:?package=OpenCover"
-#tool "nuget:?package=ReportGenerator"
+#tool "nuget:?package=NUnit.ConsoleRunner&version=3.9.0"
+#tool "nuget:?package=OpenCover&version=4.6.519"
+#tool "nuget:?package=ReportGenerator&version=4.0.4"
 
-// Remove version pinning when bug in Lib2GitSharp has been fixed: https://github.com/libgit2/libgit2sharp/issues/1637
 #addin "nuget:?package=Cake.Git&version=0.18.0"
 
 using System.IO;
