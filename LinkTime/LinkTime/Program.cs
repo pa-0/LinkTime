@@ -1,7 +1,7 @@
 ﻿#region MIT License
 // The MIT License (MIT)
 //
-// Copyright © 2017-2018 Tobias Koch <t.koch@tk-software.de>
+// Copyright © 2017-2019 Tobias Koch <t.koch@tk-software.de>
 //
 // Permission is hereby granted, free of charge, to any person
 // obtaining a copy of this software and associated documentation
@@ -50,7 +50,7 @@ namespace LinkTime
             Version version = Assembly.GetExecutingAssembly().GetName().Version;
 
             Console.WriteLine($"LinkTime {version.Major}.{version.Minor}.{version.Revision}");
-            Console.WriteLine("(C) 2017-2018  Tobias Koch <t.koch@tk-software.de>");
+            Console.WriteLine("(C) 2017-2019  Tobias Koch <t.koch@tk-software.de>");
             Console.WriteLine();
 
             if (args.Length != 0)
