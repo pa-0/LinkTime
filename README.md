@@ -2,10 +2,6 @@
 
 # LINKTIME
 
-[![pipeline status](https://gitlab.com/tobiaskoch/LinkTime/badges/master/pipeline.svg)](https://gitlab.com/tobiaskoch/LinkTime/commits/master)
-[![maintained: yes](https://tobiaskoch.gitlab.io/badges/maintained-yes.svg)](https://gitlab.com/tobiaskoch/LinkTime/commits/master)
-[![donate: paypal](https://tobiaskoch.gitlab.io/badges/donate-paypal.svg)](https://www.tk-software.de/donate)
-
 LinkTime is a small .NET based console application reading the [linker](https://en.wikipedia.org/wiki/Linker_(computing)) timestamp of the [Microsoft Windows Portable Executable (PE) format](https://en.wikipedia.org/wiki/Portable_Executable).
 
 ## Installation
