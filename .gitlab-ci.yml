@@ -17,7 +17,7 @@ release:
         paths:
           - ./*.zip
     script:
-        - ./Build.sh --configuration=Release
+        - ./build.sh --configuration=Release
 
 ci-release:
     stage: build
@@ -31,9 +31,9 @@ ci-release:
         paths:
           - ./*.zip
     script:
-        - ./Build.sh --configuration=Release
+        - ./build.sh --configuration=Release
     
 ci-debug:
     stage: test
     script:
-        - ./Build.sh
+        - ./build.sh
