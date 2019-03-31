@@ -8,15 +8,15 @@
 
 # Define directories.
 SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-TOOLS_DIR=$SCRIPT_DIR/Tools
+TOOLS_DIR=$SCRIPT_DIR/tools
 ADDINS_DIR=$TOOLS_DIR/Addins
 MODULES_DIR=$TOOLS_DIR/Modules
 NUGET_EXE=$TOOLS_DIR/nuget.exe
 CAKE_EXE=$TOOLS_DIR/Cake/Cake.exe
-PACKAGES_CONFIG=$TOOLS_DIR/Packages.config
-PACKAGES_CONFIG_MD5=$TOOLS_DIR/Packages.config.md5sum
-ADDINS_PACKAGES_CONFIG=$ADDINS_DIR/Packages.config
-MODULES_PACKAGES_CONFIG=$MODULES_DIR/Packages.config
+PACKAGES_CONFIG=$TOOLS_DIR/packages.config
+PACKAGES_CONFIG_MD5=$TOOLS_DIR/packages.config.md5sum
+ADDINS_PACKAGES_CONFIG=$ADDINS_DIR/packages.config
+MODULES_PACKAGES_CONFIG=$MODULES_DIR/packages.config
 
 # Define md5sum or md5 depending on Linux/OSX
 MD5_EXE=
@@ -27,7 +27,7 @@ else
 fi
 
 # Define default arguments.
-SCRIPT="Build.cake"
+SCRIPT="build.cake"
 CAKE_ARGUMENTS=()
 
 # Parse arguments.
@@ -46,11 +46,11 @@ if [ ! -d "$TOOLS_DIR" ]; then
 fi
 
 # Make sure that Packages.config exist.
-if [ ! -f "$TOOLS_DIR/Packages.config" ]; then
-    echo "Downloading Packages.config..."
-    curl -Lsfo "$TOOLS_DIR/Packages.config" https://cakebuild.net/download/bootstrapper/packages
+if [ ! -f "$TOOLS_DIR/packages.config" ]; then
+    echo "Downloading packages.config..."
+    curl -Lsfo "$TOOLS_DIR/packages.config" https://cakebuild.net/download/bootstrapper/packages
     if [ $? -ne 0 ]; then
-        echo "An error occurred while downloading Packages.config."
+        echo "An error occurred while downloading packages.config."
         exit 1
     fi
 fi

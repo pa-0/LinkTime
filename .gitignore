@@ -219,5 +219,5 @@ StyleCop.Cache
 .cache/
 
 # CAKE build
-Tools/**
-!Tools/Packages.config
+tools/**
+!tools/Packages.config
