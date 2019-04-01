@@ -4,6 +4,10 @@ stages:
     - test
     - build
 
+before_script:
+    - apt-get -qq update
+    - apt-get -yqq install libcurl3
+
 cache:
   paths:
   - .cache/
