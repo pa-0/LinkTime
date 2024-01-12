@@ -1,7 +1,7 @@
 #region MIT License
 // The MIT License (MIT)
 //
-// Copyright © 2017-2019 Tobias Koch <t.koch@tk-software.de>
+// Copyright © 2017-2024 Tobias Koch <t.koch@tk-software.de>
 //
 // Permission is hereby granted, free of charge, to any person
 // obtaining a copy of this software and associated documentation
