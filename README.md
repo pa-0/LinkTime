@@ -41,4 +41,4 @@ see [AUTHORS.txt](https://gitlab.com/tobiaskoch/LinkTime/blob/master/AUTHORS.txt
 Thanks for your interest in this project. You can show your appreciation and support further development by [donating](https://www.tk-software.de/donate).
 
 ## License
-**LinkTime** © 2017-2019  Tobias Koch. Released under the [MIT License](https://gitlab.com/tobiaskoch/LinkTime/blob/master/LICENSE.md).
+**LinkTime** © 2017-2024  Tobias Koch. Released under the [MIT License](https://gitlab.com/tobiaskoch/LinkTime/blob/master/LICENSE.md).
